@@ -8,21 +8,21 @@ namespace SportsOrganizationsAPI.Persistence.Repositories
     public class RepositoryManager : IRepositoryManager
     {
         /// <summary>
-        /// Репозиторий, отвечающий за работу с простыми сущностями
+        /// Репозиторий, отвечающий за работу с людьми
         /// </summary>
-        private readonly IHandBookRepository handBookRepository;
+        private readonly IPersonRepository personRepository;
 
         /// <summary>
         /// Репозиторий для работы с остальными репозиториями
         /// </summary>
         public RepositoryManager(ApplicationDbContext context)
         {
-            handBookRepository = new EFHandBookRepository(context);
+            personRepository = new EFPersonRepository(context);
         }
 
         /// <summary>
-        /// Репозиторий, отвечающий за работу с простыми сущностями
+        /// Репозиторий, отвечающий за работу с людьми
         /// </summary>
-        public IHandBookRepository HandBookRepository => handBookRepository;
+        public IPersonRepository PersonRepository => personRepository;
     }
 }

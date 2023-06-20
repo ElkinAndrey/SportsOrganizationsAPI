@@ -8,6 +8,6 @@
         /// <summary>
         /// Репозиторий, отвечающий за работу с простыми сущностями
         /// </summary>
-        IHandBookRepository HandBookRepository { get; }
+        IPersonRepository PersonRepository { get; }
     }
 }
