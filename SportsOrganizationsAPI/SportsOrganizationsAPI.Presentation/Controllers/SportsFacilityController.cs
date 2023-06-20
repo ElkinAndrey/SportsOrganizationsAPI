@@ -116,5 +116,73 @@ namespace SportsOrganizationsAPI.Presentation.Controllers
 
             return Ok();
         }
+
+        /// <summary>
+        /// ѕолучить список с типами спортивных сооружений
+        /// </summary>
+        /// <returns>—писок с типами спортивных сооружений</returns>
+        [HttpGet]
+        [Route("sport")]
+        public async Task<IActionResult> GetSportsFacilitiesTypesAsync()
+        {
+            var cities = (await _repositoryManager.SportsFacilityRepository.GetSportsFacilitiesTypesAsync())
+                .Select(c => new
+                {
+                    Id = c.SportsFacilityTypeId,
+                    c.Name,
+                });
+
+            return Ok(cities);
+        }
+
+        /// <summary>
+        /// ƒобавить новый тип спортивных сооружений
+        /// </summary>
+        /// <param name="sportsFacilityType">Ќовый тип спортивных сооружений</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("sport/add")]
+        public async Task<IActionResult> AddSportsFacilitiesTypesAsync(SportsFacilityType model)
+        {
+            await _repositoryManager.SportsFacilityRepository.AddSportsFacilitiesTypesAsync(new SportsFacilityType
+            {
+                SportsFacilityTypeId = Guid.NewGuid(),
+                Name = model.Name,
+            });
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// ”далить тип спортивных сооружений
+        /// </summary>
+        /// <param name="id">Id типа спортивных сооружений</param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("sport/delete/{id}")]
+        public async Task<IActionResult> DeletSportsFacilitiesTypesByIdAsync(Guid id)
+        {
+            await _repositoryManager.SportsFacilityRepository.DeletSportsFacilitiesTypesByIdAsync(id);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// »зменить тип спортивного сооружени€
+        /// </summary>
+        /// <remarks>
+        /// ¬ ID записываетс€ уникальный Id типа спортивного сооружени€,
+        /// который нужно изменить. ¬ остальные параметры вписываютс€ 
+        /// новые значени€. ≈сли значение не нужно мен€ть, необходимо 
+        /// записать null.
+        /// </remarks>
+        /// <param name="sportsFacilityType">“ип спортивного сооружени€</param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("sport/change")]
+        public async Task<IActionResult> ChangeSportsFacilityTypeAsync(SportsFacilityType sportsFacilityType)
+        {
+            return Ok();
+        }
     }
 }

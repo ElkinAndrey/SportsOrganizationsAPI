@@ -36,6 +36,12 @@ namespace SportsOrganizationsAPI.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task AddSportsFacilitiesTypesAsync(SportsFacilityType sportsFacilityType)
+        {
+            await _context.SportsFacilityTypes.AddAsync(sportsFacilityType);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task ChangeCityAsync(City city)
         {
             var oldCity = await _context.Cities
@@ -53,6 +59,21 @@ namespace SportsOrganizationsAPI.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task ChangeSportsFacilityTypeAsync(SportsFacilityType sportsFacilityType)
+        {
+            var oldSportsFacilityType = await _context.SportsFacilityTypes
+                .Where(p => p.SportsFacilityTypeId == sportsFacilityType.SportsFacilityTypeId)
+                .FirstOrDefaultAsync();
+
+            if (oldSportsFacilityType is null)
+                throw new ElementNotFoundException(sportsFacilityType.SportsFacilityTypeId.ToString());
+
+            if (sportsFacilityType.Name is not null) 
+                oldSportsFacilityType.Name = sportsFacilityType.Name;
+
+            await _context.SaveChangesAsync();
+        }
+
         public async Task DeleteCityByIdAsync(Guid id)
         {
             var city = await _context.Cities
@@ -66,9 +87,27 @@ namespace SportsOrganizationsAPI.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeletSportsFacilitiesTypesByIdAsync(Guid id)
+        {
+            var sportsFacilityType = await _context.SportsFacilityTypes
+                .Where(p => p.SportsFacilityTypeId == id)
+                .FirstOrDefaultAsync();
+
+            if (sportsFacilityType is null)
+                throw new ElementNotFoundException(id.ToString());
+
+            _context.SportsFacilityTypes.Remove(sportsFacilityType);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<City>> GetCitiesAsync()
         {
             return await _context.Cities.ToListAsync();
+        }
+
+        public async Task<IEnumerable<SportsFacilityType>> GetSportsFacilitiesTypesAsync()
+        {
+            return await _context.SportsFacilityTypes.ToListAsync();
         }
     }
 }
