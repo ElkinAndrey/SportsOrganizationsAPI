@@ -12,7 +12,7 @@ using SportsOrganizationsAPI.Persistence;
 namespace SportsOrganizationsAPI.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230619143105_Initial")]
+    [Migration("20230620115808_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
