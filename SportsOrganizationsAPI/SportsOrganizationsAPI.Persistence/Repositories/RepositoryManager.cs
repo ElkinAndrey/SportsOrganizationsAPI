@@ -18,22 +18,24 @@ namespace SportsOrganizationsAPI.Persistence.Repositories
         private readonly ISportEventRepository sportEventRepository;
 
         /// <summary>
+        /// Репозиторий, отвечающий за работу со спортивными сооружениями
+        /// </summary>
+        private readonly ISportsFacilityRepository sportsFacilityRepository;
+
+        /// <summary>
         /// Репозиторий для работы с остальными репозиториями
         /// </summary>
         public RepositoryManager(ApplicationDbContext context)
         {
             personRepository = new EFPersonRepository(context);
             sportEventRepository = new EFSportEventRepository(context);
+            sportsFacilityRepository = new EFSportsFacilityRepository(context);
         }
 
-        /// <summary>
-        /// Репозиторий, отвечающий за работу с людьми
-        /// </summary>
         public IPersonRepository PersonRepository => personRepository;
 
-        /// <summary>
-        /// Репозиторий, отвечающий за работу со спортивными мероприятиями
-        /// </summary>
         public ISportEventRepository SportEventRepository => sportEventRepository;
+
+        public ISportsFacilityRepository SportsFacilityRepository => sportsFacilityRepository;
     }
 }

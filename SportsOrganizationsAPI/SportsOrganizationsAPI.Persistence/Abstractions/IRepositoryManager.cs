@@ -14,5 +14,10 @@
         /// Репозиторий, отвечающий за работу со спортивными мероприятиями
         /// </summary>
         ISportEventRepository SportEventRepository { get; }
+
+        /// <summary>
+        /// Репозиторий, отвечающий за работу со спортивными сооружениями
+        /// </summary>
+        ISportsFacilityRepository SportsFacilityRepository { get; }
     }
 }
