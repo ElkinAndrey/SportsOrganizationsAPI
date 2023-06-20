@@ -9,5 +9,10 @@
         /// Репозиторий, отвечающий за работу с простыми сущностями
         /// </summary>
         IPersonRepository PersonRepository { get; }
+
+        /// <summary>
+        /// Репозиторий, отвечающий за работу со спортивными мероприятиями
+        /// </summary>
+        ISportEventRepository SportEventRepository { get; }
     }
 }
