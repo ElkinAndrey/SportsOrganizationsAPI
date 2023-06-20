@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SportsOrganizationsAPI.Infrastructure.Middlewares;
 using SportsOrganizationsAPI.Persistence;
 using SportsOrganizationsAPI.Persistence.Abstractions;
 using SportsOrganizationsAPI.Persistence.Repositories;
@@ -30,5 +31,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseExceptionHandlerMiddleware();
 
 app.Run();
