@@ -39,5 +39,38 @@ namespace SportsOrganizationsAPI.Persistence.Abstractions
         /// <param name="award">Оценка</param>
         /// <returns></returns>
         public Task ChangeAwardAsync(Award award);
+
+        /// <summary>
+        /// Получить виды спорта
+        /// </summary>
+        /// <returns>Список видов спорта</returns>
+        public Task<IEnumerable<Sport>> GetSportsAsync();
+
+        /// <summary>
+        /// Добавить новый вид спорта
+        /// </summary>
+        /// <param name="sport">Новый вид спорта</param>
+        /// <returns></returns>
+        public Task AddSportAsync(Sport sport);
+
+        /// <summary>
+        /// Удалить вид спорта по Id
+        /// </summary>
+        /// <param name="id">Id вида спорта</param>
+        /// <returns></returns>
+        public Task DeleteSportByIdAsync(Guid id);
+
+        /// <summary>
+        /// Изменить вид спорта
+        /// </summary>
+        /// <remarks>
+        /// В ID записывается уникальный Id вида спорта, который нужно
+        /// изменить. В остальные параметры вписываются новые 
+        /// значения. Если значение не нужно менять, необходимо 
+        /// записать null.
+        /// </remarks>
+        /// <param name="sport">Вид спорта</param>
+        /// <returns></returns>
+        public Task ChangeSportAsync(Sport sport);
     }
 }

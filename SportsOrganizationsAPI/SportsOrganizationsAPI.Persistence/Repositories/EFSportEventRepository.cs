@@ -74,5 +74,52 @@ namespace SportsOrganizationsAPI.Persistence.Repositories
         {
             return await _context.Awards.ToListAsync();
         }
+
+        /// <summary>
+        /// Получить вид спорта по Id
+        /// </summary>
+        /// <param name="id">Id вида спорта</param>
+        /// <returns>Вид спорта</returns>
+        public async Task<Sport> GetSportById(Guid id)
+        {
+            var sport = await _context.Sports
+                .Where(p => p.SportId == id)
+                .FirstOrDefaultAsync();
+
+            if (sport is null)
+                throw new ElementNotFoundException(id.ToString());
+
+            return sport;
+        }
+
+        public async Task<IEnumerable<Sport>> GetSportsAsync()
+        {
+            return await _context.Sports.ToListAsync();
+        }
+
+        public async Task AddSportAsync(Sport sport)
+        {
+            await _context.Sports.AddAsync(sport);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteSportByIdAsync(Guid id)
+        {
+            var sport = await GetSportById(id);
+            _context.Sports.Remove(sport);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ChangeSportAsync(Sport sport)
+        {
+            var oldSport = await GetSportById(sport.SportId);
+
+            if (sport.Name is not null)
+                oldSport.Name = sport.Name;
+            if (sport.Description is not null)
+                oldSport.Description = sport.Description;
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

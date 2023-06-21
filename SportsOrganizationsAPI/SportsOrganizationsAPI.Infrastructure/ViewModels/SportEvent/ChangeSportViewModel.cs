@@ -3,8 +3,10 @@
     /// <summary>
     /// Guid Id - Id награды,
     /// string Name - имя, 
+    /// string Description - описание вида спорта, 
     /// </summary>
-    public record class ChangeAwardViewModel(
+    public record class ChangeSportViewModel(
         Guid Id,
-        string? Name);
+        string? Name,
+        string? Description);
 }
