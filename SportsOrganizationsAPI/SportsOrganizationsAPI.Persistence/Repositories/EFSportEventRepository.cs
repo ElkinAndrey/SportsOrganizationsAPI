@@ -121,5 +121,52 @@ namespace SportsOrganizationsAPI.Persistence.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        /// <summary>
+        /// Получить роль в спортивном мероприятии по Id
+        /// </summary>
+        /// <param name="id">Id вида спорта</param>
+        /// <returns>Вид спорта</returns>
+        public async Task<SportEventRole> GetSportEventRoleById(Guid id)
+        {
+            var sportEventRole = await _context.SportEventRoles
+                .Where(p => p.SportEventRoleId == id)
+                .FirstOrDefaultAsync();
+
+            if (sportEventRole is null)
+                throw new ElementNotFoundException(id.ToString());
+
+            return sportEventRole;
+        }
+
+        public async Task<IEnumerable<SportEventRole>> GetSportEventRolesAsync()
+        {
+            return await _context.SportEventRoles.ToListAsync();
+        }
+
+        public async Task AddSportEventRoleAsync(SportEventRole sportEventRole)
+        {
+            await _context.SportEventRoles.AddAsync(sportEventRole);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteSportEventRoleByIdAsync(Guid id)
+        {
+            var sportEventRole = await GetSportEventRoleById(id);
+            _context.SportEventRoles.Remove(sportEventRole);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ChangeSportEventRoleAsync(SportEventRole sportEventRole)
+        {
+            var oldSportEventRole = await GetSportEventRoleById(sportEventRole.SportEventRoleId);
+
+            if (sportEventRole.Name is not null)
+                oldSportEventRole.Name = sportEventRole.Name;
+            if (sportEventRole.Description is not null)
+                oldSportEventRole.Description = sportEventRole.Description;
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

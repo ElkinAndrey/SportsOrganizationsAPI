@@ -116,7 +116,7 @@ namespace SportsOrganizationsAPI.Presentation.Controllers
         [Route("sports")]
         public async Task<IActionResult> GetSportsAsync()
         {
-            var awards = (await _repositoryManager.SportEventRepository
+            var sports = (await _repositoryManager.SportEventRepository
                 .GetSportsAsync())
                 .Select(a => new
                 {
@@ -125,7 +125,7 @@ namespace SportsOrganizationsAPI.Presentation.Controllers
                     a.Description,
                 });
 
-            return Ok(awards);
+            return Ok(sports);
         }
 
         /// <summary>
@@ -179,6 +179,86 @@ namespace SportsOrganizationsAPI.Presentation.Controllers
                 .ChangeSportAsync(new Sport
                 {
                     SportId = model.Id,
+                    Name = model.Name,
+                    Description = model.Description,
+                });
+
+            return Ok();
+        }
+
+
+        /// <summary>
+        /// Получить список ролей в спортивном мероприятии
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <returns>Список с ролями в спортивном мероприятии</returns>
+        [HttpGet]
+        [Route("roles")]
+        public async Task<IActionResult> GetSportEventRolesAsync()
+        {
+            var sportEventRoles = (await _repositoryManager.SportEventRepository
+                .GetSportEventRolesAsync())
+                .Select(a => new
+                {
+                    Id = a.SportEventRoleId,
+                    a.Name,
+                    a.Description,
+                });
+
+            return Ok(sportEventRoles);
+        }
+
+        /// <summary>
+        /// Добавить новую роль в спортивное мероприятие
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        [HttpPost]
+        [Route("roles/add")]
+        public async Task<IActionResult> AddSportEventRoleAsync(AddSportEventRoleViewModel model)
+        {
+            await _repositoryManager.SportEventRepository
+                .AddSportEventRoleAsync(new SportEventRole
+                {
+                    SportEventRoleId = Guid.NewGuid(),
+                    Name = model.Name,
+                    Description = model.Description,
+                });
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Удалить роль в спортивном мероприятии по Id 
+        /// </summary>
+        /// <param name="id">Id удаляемой роли</param>
+        [HttpDelete]
+        [Route("roles/delete/{id}")]
+        public async Task<IActionResult> DeleteSportEventRoleByIdAsync(Guid id)
+        {
+            await _repositoryManager.SportEventRepository
+                .DeleteSportEventRoleByIdAsync(id);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Изменить роль в спортивном мероприятии
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        [HttpPut]
+        [Route("roles/change")]
+        public async Task<IActionResult> ChangeSportEventRoleAsync(ChangeSportEventRoleViewModel model)
+        {
+            await _repositoryManager.SportEventRepository
+                .ChangeSportEventRoleAsync(new SportEventRole
+                {
+                    SportEventRoleId = model.Id,
                     Name = model.Name,
                     Description = model.Description,
                 });

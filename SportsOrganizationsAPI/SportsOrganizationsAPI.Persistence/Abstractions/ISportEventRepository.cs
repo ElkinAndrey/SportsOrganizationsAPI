@@ -72,5 +72,39 @@ namespace SportsOrganizationsAPI.Persistence.Abstractions
         /// <param name="sport">Вид спорта</param>
         /// <returns></returns>
         public Task ChangeSportAsync(Sport sport);
+
+        /// <summary>
+        /// Получить список ролей в спортивном мероприятии
+        /// </summary>
+        /// <returns>Список с ролями в спортивном мероприятии</returns>
+        public Task<IEnumerable<SportEventRole>> GetSportEventRolesAsync();
+
+        /// <summary>
+        /// Добавить новую роль в спортивное мероприятие
+        /// </summary>
+        /// <param name="sportEventRole">Новая роль в спортивном мероприятии</param>
+        /// <returns></returns>
+        public Task AddSportEventRoleAsync(SportEventRole sportEventRole);
+
+        /// <summary>
+        /// Удалить роль в спортивном мероприятии по Id 
+        /// </summary>
+        /// <param name="id">Id удаляемой роли</param>
+        /// <returns></returns>
+        public Task DeleteSportEventRoleByIdAsync(Guid id);
+
+        /// <summary>
+        /// Изменить роль в спортивном мероприятии
+        /// </summary>
+        /// <remarks>
+        /// В ID записывается уникальный Id роли в спортивном 
+        /// мероприятии, которую нужно изменить. В остальные параметры 
+        /// вписываются новые значения. Если значение не нужно менять, 
+        /// необходимо записать null.
+        /// </remarks>
+        /// <param name="sportEventRole">Роль в спортивном мероприятии</param>
+        /// <returns></returns>
+        public Task ChangeSportEventRoleAsync(SportEventRole sportEventRole);
+
     }
 }
