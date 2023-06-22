@@ -105,6 +105,5 @@ namespace SportsOrganizationsAPI.Persistence.Abstractions
         /// <param name="sportEventRole">Роль в спортивном мероприятии</param>
         /// <returns></returns>
         public Task ChangeSportEventRoleAsync(SportEventRole sportEventRole);
-
     }
 }

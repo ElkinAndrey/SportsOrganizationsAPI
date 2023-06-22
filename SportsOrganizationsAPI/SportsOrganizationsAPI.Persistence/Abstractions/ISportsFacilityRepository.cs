@@ -72,5 +72,75 @@ namespace SportsOrganizationsAPI.Persistence.Abstractions
         /// <param name="sportsFacilityType">Тип спортивного сооружения</param>
         /// <returns></returns>
         public Task ChangeSportsFacilityTypeAsync(SportsFacilityType sportsFacilityType);
+
+        /// <summary>
+        /// Получить список спортивных сооружений
+        /// </summary>
+        /// <param name="start">Начало отчета</param>
+        /// <param name="length">Длина среза</param>
+        /// <param name="name">Часть названия</param>
+        /// <param name="capacityPersonUpper">Нижняя граница вместимости человек</param>
+        /// <param name="capacityPersonLower">Верхняя граница вместимости человек</param>
+        /// <param name="sportsFacilityTypeId">Id типа спортивного сооружения</param>
+        /// <param name="cityId">Id города</param>
+        /// <returns>Список спортивных сооружений</returns>
+        public Task<IEnumerable<SportsFacility>> GetSportsFacilitiesAsync(
+            int start,
+            int length,
+            string? name = null,
+            int? capacityPersonUpper = null,
+            int? capacityPersonLower = null,
+            Guid? sportsFacilityTypeId = null,
+            Guid? cityId = null);
+
+        /// <summary>
+        /// Добавить новое спортивное сооружение
+        /// </summary>
+        /// <param name="name">Название</param>
+        /// <param name="capacityPerson">Вместимость человек</param>
+        /// <param name="sportsFacilityTypeId">Id типа спортивного сооружения</param>
+        /// <param name="cityId">Id города</param>
+        /// <returns></returns>
+        public Task AddSportsFacilityAsync(
+            Guid id,
+            string name,
+            int capacityPerson,
+            Guid sportsFacilityTypeId,
+            Guid cityId);
+
+        /// <summary>
+        /// Удалить спортивное сооружение
+        /// </summary>
+        /// <param name="id">Id спортивного сооружения</param>
+        /// <returns></returns>
+        public Task DeleteSportsFacilityByIdAsync(Guid id);
+
+        /// <summary>
+        /// Поменять параметры спортивного сооружения
+        /// </summary>
+        /// <remarks>
+        /// В ID записывается уникальный Id спортивного сооружения 
+        /// В остальные параметры вписываются новые значения. 
+        /// Если значение не нужно менять, необходимо записать null.
+        /// </remarks>
+        /// <param name="id">Id сооружения, у которого будут изменены параметры</param>
+        /// <param name="name">Новое название</param>
+        /// <param name="capacityPerson">Новая вместимость</param>
+        /// <param name="sportsFacilityTypeId">Новый тип спортивного сооружения</param>
+        /// <param name="cityId">Новый город</param>
+        /// <returns></returns>
+        public Task ChangeSportsFacilityAsync(
+            Guid id,
+            string? name = null,
+            int? capacityPerson = null,
+            Guid? sportsFacilityTypeId = null,
+            Guid? cityId = null);
+
+        /// <summary>
+        /// Получить спортивное сооружение по Id
+        /// </summary>
+        /// <param name="id">Id спортивного сооружения</param>
+        /// <returns>Спортивное сооружение</returns>
+        public Task<SportsFacility> GetSportsFacilityByIdAsync(Guid id);
     }
 }
